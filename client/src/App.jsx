@@ -1,33 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
+import Home from   './pages/home/Home'
 import './App.css'
-
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,  
+} from "react-router-dom"
+import Gigs from './pages/gigs/Gigs'
+import Gig from './pages/gig/Gig'
+import Orders from './pages/orders/Orders'
+import Mygigs from './pages/mygigs/Mygigs'
+import Add from './pages/add/Add'
+import Messages from './pages/messages/Messages'
+import Message from './pages/message/message'
 function App() {
-  const [count, setCount] = useState(0)
+  const Layout =()=>{
+return(
+  <>
+  <Navbar/>
+  <Outlet/>  
+ <Footer/>
+ </>
+)
+  }
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout/>,
+      children:[
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+        path: "/gigs",
+      element: <Gigs/>,
+        },
+        {
+          path: "/gig/:id",
+        element: <Gig/>,
+          },
+          {
+            path: "/orders",
+          element: <Orders/>,
+            },
+            {
+              path: "/mygigs",
+            element: <Mygigs/>,
+              },
+              {
+                path: "/add",
+              element: <Add/>,
+                },
+                {
+                  path: "/messages",
+                element: <Messages/>,
+                  },
+                  {
+                    path: "/message",
+                  element: <Message/>,
+                    }
+      ]
+    
+    },
+  ]);
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <RouterProvider router={router} />
+      
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      
     </>
   )
 }
